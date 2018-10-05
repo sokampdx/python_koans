@@ -17,12 +17,18 @@
 #   about_triangle_project_2.py
 #
 def triangle(a, b, c):
-    if (a == b and b == c):
+    if (a <= 0 or b <= 0 or c <=0):
+        raise TriangleError(RuntimeError)
+    if (a > (b + c) or b > (a + c) or c > (a + b)):
+        raise TriangleError(RuntimeError)
+    elif (a == b and b == c):
         return "equilateral"
     elif (a != b and b != c and c != a):
         return "scalene"
     else:
         return "isosceles"
+
+
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError(Exception):
