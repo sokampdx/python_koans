@@ -32,9 +32,21 @@ from runner.koan import *
 #
 # Your goal is to write the score method.
 
+from functools import reduce
+
 def score(dice):
-    # You need to write this method
-    pass
+    counts = dict([i, dice.count(i)] for i in dice)
+
+    triple = lambda count, num, point: count // 3 * num * point
+    single = lambda count, num, point: count % 3 * num * point
+
+    result = 0
+    for k, v in counts.items():
+        if k == 1: result += triple(v, k, 1000) + single(v, k, 100)
+        if k == 5: result += single(v, k, 10)
+        if k != 1: result += triple(v, k, 100)
+
+    return result
 
 class AboutScoringProject(Koan):
     def test_score_of_an_empty_list_is_zero(self):
